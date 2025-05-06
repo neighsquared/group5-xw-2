@@ -62,4 +62,4 @@ USER appuser
 EXPOSE 8080 
 
 # Start the application using Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:${PORT}", "--workers", "3", "MyInventorySystem.wsgi:application"]
+CMD sh -c "gunicorn --bind 0.0.0.0:${PORT:-8080} --workers 3 MyInventorySystem.wsgi:application"
