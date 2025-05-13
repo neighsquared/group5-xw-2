@@ -27,6 +27,10 @@ DEBUG = bool(os.environ.get("DEBUG", default=0))
 
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://group5-xw-1067583732076.us-central1.run.app/",
+]
+
 
 # Application definition
 
