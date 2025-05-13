@@ -77,18 +77,26 @@ WSGI_APPLICATION = 'MyInventorySystem.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.{}'.format(
-            os.getenv('DATABASE_ENGINE', 'sqlite3')
-        ),
-        'NAME': os.getenv('DATABASE_NAME', 'polls'),
-        'USER': os.getenv('DATABASE_USERNAME', 'myprojectuser'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'password'),
-        'HOST': os.getenv('DATABASE_HOST', '127.0.0.1'),
-        'PORT': os.getenv('DATABASE_PORT', 5432),
+DATABASE_ENGINE = os.getenv('DATABASE_ENGINE', 'sqlite3')
+
+if DATABASE_ENGINE == 'sqlite3':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.getenv('DATABASE_NAME', '/tmp/db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': f'django.db.backends.{DATABASE_ENGINE}',
+            'NAME': os.getenv('DATABASE_NAME', 'polls'),
+            'USER': os.getenv('DATABASE_USERNAME', 'myprojectuser'),
+            'PASSWORD': os.getenv('DATABASE_PASSWORD', 'password'),
+            'HOST': os.getenv('DATABASE_HOST', '127.0.0.1'),
+            'PORT': os.getenv('DATABASE_PORT', 5432),
+        }
+    }
 
 
 # Password validation
